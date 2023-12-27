@@ -57,13 +57,23 @@ public:
     int size() {
         return current_size;
     }
+
+    T* begin() { return arr; }
+
+    T* end() { return arr + current_size; }
+
+    T operator[] (int index) {
+        return *(arr + index);
+    }
+
 };
 
 int main() {
     MyVector<int> d = {2, 5, 10};
-    std::cout << d.get(0) << std::endl;
-     std::cout << d.get(1) << std::endl;
-    std::cout << d.get(2) << std::endl;
-    std::cout << d.get(3) << std::endl;
+    MyVector<int> d1(10, 100);
+
+    for (const auto& elem : d1) {
+        std::cout << elem << std::endl;
+    }
     return 0;
 }
