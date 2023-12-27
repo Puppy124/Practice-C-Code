@@ -2,6 +2,7 @@
 #include <initializer_list>
 #include <algorithm>
 
+
 template <typename T>
 class MyVector {
 private:
@@ -73,27 +74,49 @@ public:
         std::sort(begin(), end());
     }
 
-    T operator[] (int index) { return *(arr + index); }
+    void fill(T value) {
+        for(int i  = 0; i < current_size; i++) {
+            arr[i] = value;
+        }
+    }
+
+    T operator[] (int index) { return arr[index]; }
 
 };
 
+template <typename T>
+void display(MyVector<T> &vector) {
+    for(const auto& elem : vector) {
+        std::cout << elem << std::endl;
+    }
+}
+
 int main() {
     MyVector<int> d = {20, 5, 10};
+    std::cout << "Current size after: " << d.get_size() << std::endl;
+    std::cout << "Max capacity after: " << d.get_capacity() << std::endl;
 
     d.add_back(50);
-//    d.add_back(600);
-
     std::cout << "Before sort: " << std::endl;
     for (const auto& elem : d) {
         std::cout << elem << std::endl;
     }
-    std::cout << "Current size: " << d.get_size() << std::endl;
-    std::cout << "Max capacity: " << d.get_capacity() << std::endl;
+    std::cout << "Current size after: " << d.get_size() << std::endl;
+    std::cout << "Max capacity after: " << d.get_capacity() << std::endl;
 
     d.sort();
     std::cout << "After sort: " << std::endl;
     for (const auto& elem : d) {
         std::cout << elem << std::endl;
     }
+
+    d.add_back(600);
+    std::cout << "Current size after: " << d.get_size() << std::endl;
+    std::cout << "Max capacity after: " << d.get_capacity() << std::endl;
+
+    MyVector<float> list = {3.32f, 30.2f, 50.45f};
+    display(list);
+    list.fill(20.2f);
+    display(list);
     return 0;
 }
