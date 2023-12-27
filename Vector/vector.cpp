@@ -1,5 +1,6 @@
 #include <iostream>
 #include <initializer_list>
+#include <algorithm>
 
 template <typename T>
 class MyVector {
@@ -45,7 +46,7 @@ public:
             delete[] arr;  // Delete the old vector to prevent memory leak
             arr = new_array; // Assign the new array back to the original one
             static int temp = 0;
-            std::cout << "Reallocated " << temp++ << " times." << std::endl;
+            std::cout << "Reallocated " << ++temp << " times." << std::endl;
         }
 
         // Insert the new data into the vector then increase the current size by one
@@ -68,21 +69,31 @@ public:
 
     T* end() { return arr + current_size; }
 
+    void sort() {
+        std::sort(begin(), end());
+    }
+
     T operator[] (int index) { return *(arr + index); }
 
 };
 
 int main() {
-    MyVector<int> d = {2, 5, 10};
+    MyVector<int> d = {20, 5, 10};
 
-//    d.add_back(50);
+    d.add_back(50);
 //    d.add_back(600);
 
+    std::cout << "Before sort: " << std::endl;
     for (const auto& elem : d) {
         std::cout << elem << std::endl;
     }
-    std::cout << d.get_size() << std::endl;
-    std::cout << d.get_capacity() << std::endl;
+    std::cout << "Current size: " << d.get_size() << std::endl;
+    std::cout << "Max capacity: " << d.get_capacity() << std::endl;
 
+    d.sort();
+    std::cout << "After sort: " << std::endl;
+    for (const auto& elem : d) {
+        std::cout << elem << std::endl;
+    }
     return 0;
 }
